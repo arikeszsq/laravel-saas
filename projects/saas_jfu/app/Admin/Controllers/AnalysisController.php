@@ -10,10 +10,10 @@ use Illuminate\Routing\Controller;
 
 class AnalysisController extends Controller
 {
+    protected $title='';
     public function index(Content $content)
     {
         return $content
-            ->title('仪表盘')
             ->row(function (Row $row) {
 
                 $row->column(4, function (Column $column) {

@@ -18,7 +18,8 @@ class ArticleController extends AdminController
      *
      * @var string
      */
-    protected $title = 'Articles';
+    protected $title = '<p style="background-color: red;">hello</p>
+<p>hello</p><p>hello</p>';
 
     public $type_list = [
         1 => '资讯新闻',

@@ -22,6 +22,7 @@
         "laravel/socialite": "^5.2",
         "laravel/tinker": "^2.5",
         "predis/predis": "^1.1",
+        "simplesoftwareio/simple-qrcode": "^4.2",
         "socialiteproviders/facebook": "^4.1",
         "tencent/tls-sig-api-v2": "^1.1",
         "zircote/swagger-php": "3.1"

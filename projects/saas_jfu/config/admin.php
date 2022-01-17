@@ -6,29 +6,29 @@ return [
     |--------------------------------------------------------------------------
     | Laravel-admin name
     |--------------------------------------------------------------------------
-    |
+    | 后台名称
     | This value is the name of laravel-admin, This setting is displayed on the
     | login page.
     |
     */
-    'name' => env('ADMIN_NAME', '聚富管理平台'),
+    'name' => env('ADMIN_NAME', '管理平台'),
 
     /*
     |--------------------------------------------------------------------------
     | Laravel-admin logo
     |--------------------------------------------------------------------------
-    |
+    |  logo名称
     | The logo of all admin pages. You can also set it as an image by using a
     | `img` tag, eg '<img src="http://logo-url" alt="Admin logo">'.
     |
     */
-    'logo' => env('ADMIN_LOGO', '<b>聚富管理平台</b>'),
+    'logo' => env('ADMIN_LOGO', '<b>管理平台</b>'),
 
     /*
     |--------------------------------------------------------------------------
     | Laravel-admin mini logo
     |--------------------------------------------------------------------------
-    |
+    | 短logo名称
     | The logo of all admin pages when the sidebar menu is collapsed. You can
     | also set it as an image by using a `img` tag, eg
     | '<img src="http://logo-url" alt="Admin logo">'.
@@ -85,7 +85,7 @@ return [
     | Html title for all pages.
     |
     */
-    'title' => env('ADMIN_TITLE', '聚富管理平台'),
+    'title' => env('ADMIN_TITLE', '管理平台'),
 
     /*
     |--------------------------------------------------------------------------
@@ -245,11 +245,11 @@ return [
     |--------------------------------------------------------------------------
     | User default avatar
     |--------------------------------------------------------------------------
-    |
+    | 默认头像
     | Set a default avatar for newly created users.
     |
     */
-    'default_avatar' => '/vendor/laravel-admin/AdminLTE/dist/img/user2-160x160.jpg',
+    'default_avatar' => '/static/images/default-logo.jpg',
 
     /*
     |--------------------------------------------------------------------------
@@ -275,7 +275,7 @@ return [
     |    "skin-red", "skin-red-light", "skin-black", "skin-black-light".
     |
     */
-    'skin' => 'skin-green-light',
+    'skin' => 'skin-blue-light',
 
     /*
     |--------------------------------------------------------------------------
@@ -295,7 +295,7 @@ return [
     |--------------------------------------------------------------------------
     | Login page background image
     |--------------------------------------------------------------------------
-    |
+    | 登录页的背景图
     | This value is used to set the background image of login page.
     |
     */
@@ -335,10 +335,10 @@ return [
     |--------------------------------------------------------------------------
     | Enable default breadcrumb
     |--------------------------------------------------------------------------
-    |
+    | 面包屑
     | Whether enable default breadcrumb for every page content.
     */
-    'enable_default_breadcrumb' => true,
+    'enable_default_breadcrumb' => false,
 
     /*
     |--------------------------------------------------------------------------
@@ -357,9 +357,10 @@ return [
     /*
     |--------------------------------------------------------------------------
     | Enable/Disable sidebar menu search
+    | 左侧导航栏菜单检索
     |--------------------------------------------------------------------------
     */
-    'enable_menu_search' => true,
+    'enable_menu_search' => false,
 
     /*
     |--------------------------------------------------------------------------
