@@ -12,4 +12,7 @@ class User extends Model
 
     protected $table = 'jf_user';
 
+    public function getCreatedAtAttribute($value){
+        return Carbon::parse($value)->format('Y-m-d');
+    }
 }

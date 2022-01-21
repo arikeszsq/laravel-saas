@@ -2,7 +2,9 @@
 
 namespace App\Admin\Controllers;
 
+use App\Admin\Extensions\CheckRow;
 use App\Models\User;
+use App\Models\UserLog;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
@@ -24,20 +26,28 @@ class UserController extends AdminController
      */
     protected function grid()
     {
+
+
         $grid = new Grid(new User());
 
-        $grid->column('id', __('Id'));
-        $grid->column('name', __('Name'));
-        $grid->column('mobile', __('Mobile'));
-        $grid->column('id_card', __('Id card'));
-        $grid->column('id_card_pic', __('Id card pic'));
-        $grid->column('id_card_pic_back', __('Id card pic back'));
-        $grid->column('pic_zz', __('Pic zz'));
-        $grid->column('pic_market', __('Pic market'));
-        $grid->column('status', __('Status'));
-        $grid->column('step', __('Step'));
-        $grid->column('created_at', __('Created at'));
-        $grid->column('updated_at', __('Updated at'));
+        $grid->column('id', __('编号'));
+        $grid->column('name', __('姓名'));
+        $grid->column('mobile', __('手机号'));
+        $grid->column('id_card', __('身份证号码'));
+//        $grid->column('status', __('状态'));
+        $grid->column('pic_zz', __('进件二维码'))->qrcode();
+        $grid->column('created_at', __('创建时间'));
+
+        $grid->actions(function ($actions) {
+//            // append一个操作
+//            $actions->append('<a href=""><i class="fa fa-eye">好你</i></a>');
+
+            // 添加操作
+            $actions->append(new CheckRow($actions->getKey()));
+        });
+
+
+
 
         return $grid;
     }
