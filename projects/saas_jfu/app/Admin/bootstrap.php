@@ -1,5 +1,6 @@
 <?php
 
+
 /**
  * Laravel-admin - admin builder based on Laravel.
  * @author z-song <https://github.com/z-song>
@@ -18,7 +19,25 @@
  *
  */
 
+use Encore\Admin\Form;
+use Encore\Admin\Grid;
+use Encore\Admin\Show;
+
 Encore\Admin\Form::forget(['map', 'editor']);
 
 //把view目录从vendor中复制出来方便修改
 app('view')->prependNamespace('admin', resource_path('views/admin'));
+
+//初始化form参数
+Form::init(function (Form $form) {
+    $form->tools(function (Form\Tools $tools) {
+        $tools->disableDelete();
+    });
+
+    $form->footer(function (Form\Footer $footer) {
+        $footer->disableReset();
+        $footer->disableViewCheck();
+        $footer->disableEditingCheck();
+        $footer->disableCreatingCheck();
+    });
+});

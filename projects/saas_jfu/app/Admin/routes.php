@@ -23,6 +23,7 @@ Route::group([
     $router->resource('codes', CodeController::class);
     $router->resource('company', CompanyController::class);
 
+    $router->resource('add-user-codes', AddUserCodeController::class);
 
 
 

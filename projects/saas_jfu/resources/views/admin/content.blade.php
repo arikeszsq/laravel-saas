@@ -3,7 +3,7 @@
 @section('content')
     <section class="content-header">
         <div>
-            {!! $header ?: 'admin.title' !!}
+            {!! $header ?: '' !!}
         </div>
         <h1>
             {{--            {!! $header ?: trans('admin.title') !!}--}}
