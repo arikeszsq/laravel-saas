@@ -85,7 +85,7 @@
     <form id="form">
         <div class="input-group">
             <label class="need">公司名称</label>
-            <input type="text" name="company" placeholder="请输入公司名称" aria-describedby="basic-addon1">
+            <input type="text" name="company_name" placeholder="请输入公司名称" aria-describedby="basic-addon1">
         </div>
         <div class="input-group">
             <label class="need">企业税号</label>
@@ -307,7 +307,7 @@
     uploader.on('uploadSuccess', function (file, response) {
         var file_id = file.id;
         var url = response._raw;
-        var html = '<input type="hidden" name="cert[]" class="cert_array cert_' + file_id + '" value="' + url + '">';
+        var html = '<input type="hidden" name="cert_pic[]" class="cert_array cert_' + file_id + '" value="' + url + '">';
         $(html).insertAfter($('#fileList'));
     });
 
@@ -373,7 +373,7 @@
     uploader_id.on('uploadSuccess', function (file, response) {
         var file_id = file.id;
         var url = response._raw;
-        var html = '<input type="hidden" name="id_card[]" class="id_card_array idcard_' + file_id + '" value="' + url + '">';
+        var html = '<input type="hidden" name="id_card_pic[]" class="id_card_array idcard_' + file_id + '" value="' + url + '">';
         $('#fileList_id').append(html);
     });
 
