@@ -84,7 +84,7 @@
     <input type="hidden" id="web_id" value="{{$web_id}}">
     <div class="input-group">
         <label class="need">公司名称</label>
-        <input type="text" class="company" placeholder="请输入公司名称" aria-describedby="basic-addon1">
+        <input type="text" class="company_name" placeholder="请输入公司名称" aria-describedby="basic-addon1">
         <span class="notice"></span>
     </div>
     <div class="input-group">
@@ -108,52 +108,65 @@
 </div>
 
 <script>
+
     $('.submit').click(function () {
-        var company = $('.company').val();
+        var company_name = $('.company_name').val();
         var user_name = $('.username').val();
         var mobile = $('.mobile').val();
         var id_card = $('.id_card').val();
 
-        var error = 0;
-        if (!company) {
-            $(".company").parent().find('.notice').html("请输入公司名称！");
-            $(".company").focus();
-            error++;
-        }
-        if (!user_name) {
-            $(".username").parent().find('.notice').html("请输入联系人！");
-            $(".username").focus();
-            error++;
-        }
-        if (!(/^1[23456789]\d{9}$/.test(mobile))) {
-            $(".mobile").parent().find('.notice').html("请输入合法手机号！");
-            $(".mobile").focus();
-            error++;
-        }
-
-        var regIdNo = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
-        if (!regIdNo.test(id_card)) {
-            $(".id_card").parent().find('.notice').html("请输入合法身份证号码！");
-            $(".id_card").focus();
-            error++;
-        }
-
-        if (error > 0) {
-            return false;
-        }
+        // var error = 0;
+        // if (!company_name) {
+        //     $(".company_name").parent().find('.notice').html("请输入公司名称！");
+        //     $(".company_name").focus();
+        //     error++;
+        // } else {
+        //     $(".company_name").parent().find('.notice').html("");
+        // }
+        // if (!user_name) {
+        //     $(".username").parent().find('.notice').html("请输入联系人！");
+        //     $(".username").focus();
+        //     error++;
+        // } else {
+        //     $(".username").parent().find('.notice').html("");
+        // }
+        // if (!(/^1[23456789]\d{9}$/.test(mobile))) {
+        //     $(".mobile").parent().find('.notice').html("请输入合法手机号！");
+        //     $(".mobile").focus();
+        //     error++;
+        // } else {
+        //     $(".mobile").parent().find('.notice').html("");
+        // }
+        //
+        // var regIdNo = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
+        // if (!regIdNo.test(id_card)) {
+        //     $(".id_card").parent().find('.notice').html("请输入合法身份证号码！");
+        //     $(".id_card").focus();
+        //     error++;
+        // } else {
+        //     $(".id_card").parent().find('.notice').html("");
+        // }
+        //
+        // if (error > 0) {
+        //     return false;
+        // }
 
         $.ajax({
             type: 'post',
             url: '/api/add',
             data: {
                 'web_id': $('#web_id').val(),
-                'company': company,
+                'company_name': company_name,
                 'user_name': user_name,
                 'mobile': mobile,
                 'id_card': id_card,
             },
-            success: function (data) {
-                console.log(data);
+            success: function (res) {
+                if (res.msg_code == 100000) {
+                    window.location.href = '/result';
+                } else {
+                    alert(res.message)
+                }
             }
         });
     })

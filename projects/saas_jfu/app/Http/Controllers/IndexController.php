@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\AddUserCode;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class IndexController extends Controller
@@ -17,7 +18,7 @@ class IndexController extends Controller
         $data_index = [
             'color' => $obj->body_color,
             'image' => $obj->banner_img,
-            'web_id'=>$obj->web_id,
+            'web_id' => $obj->web_id,
         ];
         $data_update = [
 
@@ -32,16 +33,38 @@ class IndexController extends Controller
     public function add(Request $request)
     {
         $inputs = $request->all();
-var_dump($inputs);exit;
+        $validator = \Validator::make($inputs, [
+            'company_name' => 'required',
+            'user_name' => 'required',
+            'mobile' => 'required',
+            'id_card' => 'required'
+        ], [
+            'company_name' => '企业名称必填',
+            'user_name' => '联系人必填',
+            'mobile' => '手机号必填',
+            'id_card' => '身份证号码必填'
+        ]);
+        if ($validator->fails()) {
+            return self::parametersIllegal($validator->messages()->first());
+        }
         try {
-            $ret = [
-                'code' => 200,
-                'msg' => 'success'
+            $data = [
+                'web_id' => $inputs['web_id'],
+                'company_name' => $inputs['company_name'],
+                'user_name' => $inputs['user_name'],
+                'mobile' => $inputs['mobile'],
+                'id_card' => $inputs['id_card'],
             ];
+            $ret = DB::table('jf_user')->insert($data);
             return self::success($ret);
         } catch (\Exception $e) {
             return self::error($e->getCode(), $e->getMessage());
         }
+    }
+
+    public function resultPage()
+    {
+        return view('result', ['msg' => '成功']);
     }
 
     public function update(Request $request)
