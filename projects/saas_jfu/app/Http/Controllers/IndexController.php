@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AddUserCode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -10,23 +11,28 @@ class IndexController extends Controller
     public function index(Request $request)
     {
         $inputs = $request->all();
-        $type = isset($inputs['type']) && $inputs['type'] ? $inputs['type'] : 0;
-        $image_url = 'https://img01.yzcdn.cn/vant/apple-1.jpg';
-        $data = [
-            'user_id' => 1,
-            'image_url' => $image_url
+        $id = isset($inputs['id']) && $inputs['id'] ? $inputs['id'] : 1;
+        $type = isset($inputs['type']) && $inputs['type'] ? $inputs['type'] : 'index';
+        $obj = AddUserCode::query()->where('id', $id)->first();
+        $data_index = [
+            'color' => $obj->body_color,
+            'image' => $obj->banner_img,
+            'web_id'=>$obj->web_id,
+        ];
+        $data_update = [
+
         ];
         if ($type == 'update') {
-            return view('update', $data);
+            return view('update', $data_update);
         } else {
-            return view('index', $data);
+            return view('index', $data_index);
         }
     }
 
     public function add(Request $request)
     {
         $inputs = $request->all();
-
+var_dump($inputs);exit;
         try {
             $ret = [
                 'code' => 200,
@@ -46,7 +52,7 @@ class IndexController extends Controller
     public function upload(Request $request)
     {
         $file = $request->file('file');
-        $url_path = 'uploads/update/'.date('Y-m-d');
+        $url_path = 'uploads/update/' . date('Y-m-d');
         if (!file_exists($url_path)) {
             mkdir($url_path, 0700, true);
         }

@@ -10,6 +10,11 @@
 </head>
 <body>
 <style>
+
+    body {
+        background-color: {{$color}};
+    }
+
     .input-group {
         margin-top: 20px;
     }
@@ -64,28 +69,38 @@
         margin-top: 20px;
         text-align: center;
     }
+
+    .notice {
+        color: red;
+    }
+
 </style>
 
 <div class="banner">
-    <img src="https://img2.baidu.com/it/u=578470490,2014202223&fm=253&fmt=auto&app=138&f=JPEG?w=658&h=260" alt="">
+    <img src="{{$image}}" alt="">
 </div>
 
 <div class="form-submit" style="width: 96%;margin-left: 2%;">
+    <input type="hidden" id="web_id" value="{{$web_id}}">
     <div class="input-group">
         <label class="need">公司名称</label>
         <input type="text" class="company" placeholder="请输入公司名称" aria-describedby="basic-addon1">
+        <span class="notice"></span>
     </div>
     <div class="input-group">
         <label class="need">联系人</label>
         <input type="text" class="username" placeholder="请输入联系人" aria-describedby="basic-addon1">
+        <span class="notice"></span>
     </div>
     <div class="input-group">
         <label class="need">联系电话</label>
         <input type="text" class="mobile" placeholder="请输入联系电话" aria-describedby="basic-addon1">
+        <span class="notice"></span>
     </div>
     <div class="input-group">
         <label class="need">身份证号码</label>
         <input type="text" class="id_card" placeholder="请输入身份证号码" aria-describedby="basic-addon1">
+        <span class="notice"></span>
     </div>
     <div class="submit-button">
         <button class="btn btn-info submit">提交</button>
@@ -98,7 +113,49 @@
         var user_name = $('.username').val();
         var mobile = $('.mobile').val();
         var id_card = $('.id_card').val();
-        alert(company);
+
+        var error = 0;
+        if (!company) {
+            $(".company").parent().find('.notice').html("请输入公司名称！");
+            $(".company").focus();
+            error++;
+        }
+        if (!user_name) {
+            $(".username").parent().find('.notice').html("请输入联系人！");
+            $(".username").focus();
+            error++;
+        }
+        if (!(/^1[23456789]\d{9}$/.test(mobile))) {
+            $(".mobile").parent().find('.notice').html("请输入合法手机号！");
+            $(".mobile").focus();
+            error++;
+        }
+
+        var regIdNo = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
+        if (!regIdNo.test(id_card)) {
+            $(".id_card").parent().find('.notice').html("请输入合法身份证号码！");
+            $(".id_card").focus();
+            error++;
+        }
+
+        if (error > 0) {
+            return false;
+        }
+
+        $.ajax({
+            type: 'post',
+            url: '/api/add',
+            data: {
+                'web_id': $('#web_id').val(),
+                'company': company,
+                'user_name': user_name,
+                'mobile': mobile,
+                'id_card': id_card,
+            },
+            success: function (data) {
+                console.log(data);
+            }
+        });
     })
 </script>
 </body>
