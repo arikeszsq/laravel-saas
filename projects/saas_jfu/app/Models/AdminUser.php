@@ -12,4 +12,8 @@ class AdminUser extends Model
 
     protected $table = 'admin_users';
 
+
+    public function getCreatedAtAttribute($value){
+        return Carbon::parse($value)->format('Y-m-d');
+    }
 }

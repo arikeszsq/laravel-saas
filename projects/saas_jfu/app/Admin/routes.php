@@ -22,6 +22,13 @@ Route::group([
     /** 客户 **/
     $router->resource('users', UserController::class);
 
+    /** 站点管理 **/
+    $router->resource('webs', WebController::class);
+
+    /** 站点平台用户 **/
+    $router->resource('web-admins', WebUserController::class);
+
+
     $router->resource('user-logs', UserLogController::class);
     $router->resource('areas', AreaController::class);
     $router->resource('codes', CodeController::class);

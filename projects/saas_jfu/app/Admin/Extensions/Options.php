@@ -7,6 +7,46 @@ use Illuminate\Support\Facades\DB;
 
 class Options
 {
+    /**
+     * 大区
+     * @param null $num
+     * @return array|mixed
+     */
+    static public function getArea($num = null)
+    {
+        $list = [
+            1 => '第一大区',
+            2 => '第二大区',
+            3 => '第三大区',
+        ];
+        if ($num) {
+            return $list[$num];
+        } else {
+            return $list;
+        }
+    }
+
+    /**
+     * 身份
+     * @param null $num
+     * @return array|mixed
+     */
+    static public function getAdminRole($num = null)
+    {
+        $list = [
+            1 => '总经理',
+            2 => '大区经理',
+            3 => '总监',
+            4 => '客服',
+        ];
+        if ($num) {
+            return $list[$num];
+        } else {
+            return $list;
+        }
+    }
+
+
     static public function getMarryCondition($num = null)
     {
         $list = [
