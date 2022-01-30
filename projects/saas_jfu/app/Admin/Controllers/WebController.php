@@ -61,10 +61,10 @@ class WebController extends AdminController
         $form->saving(function (Form $form) {
             $max_web_id = AdminUser::query()->max('web_id');
             $user_name = $form->username;
-            $admin_exsit = AdminUser::query()->where('user_name',$user_name)->first();
+            $admin_exsit = AdminUser::query()->where('username',$user_name)->first();
             if($admin_exsit){
                 admin_error('用户名已存在，请换一个新的用户名');
-                return redirect('/admin/basic-datas');
+                return redirect('/admin/webs');
             }
             $password = Hash::make($form->password);
             $form->password = $password;
