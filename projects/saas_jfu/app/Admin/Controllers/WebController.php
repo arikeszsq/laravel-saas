@@ -49,6 +49,15 @@ class WebController extends AdminController
     protected function form()
     {
         $form = new Form(new AdminUser());
+
+        $form->tools(function (Form\Tools $tools) {
+            // 去掉`删除`按钮
+            $tools->disableDelete();
+            // 去掉`查看`按钮
+            $tools->disableView();
+        });
+
+
         $form->text('web_name', __('站点名称'))->required();
         $form->text('username', __('用户名'))->required();
         $form->text('name', __('名称'))->required();
