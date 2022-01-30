@@ -2,13 +2,19 @@
 
 namespace App\Traits;
 
-use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
 
 trait UserTrait
 {
+    public static function webId()
+    {
+        return self::user() ? self::user()->web_id : null;
+    }
+
     public static function user()
     {
-        return App::make('user');
+//        return App::make('user');
+        return Auth::guard('admin')->user();
     }
 
     public static function userId()
@@ -35,6 +41,16 @@ trait UserTrait
     {
         $admin_role_id = Static::getAdminRole();
         if ($admin_role_id == 2) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static function isAdmin()
+    {
+        $admin_role_id = Static::getAdminRole();
+        if ($admin_role_id == 2 || $admin_role_id == 1) {
             return true;
         } else {
             return false;
