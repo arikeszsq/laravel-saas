@@ -113,7 +113,8 @@ class UserController extends AdminController
             $form->text('company_tax_no', __('企业税号'));
             $form->text('money_need', __('资金缺口'));
             $form->select('edu', __('学历'))->options(Options::getEdu());
-            $form->multipleImage('id_card_pic', __('身份证图片'))->removable();
+//            $form->image('id_card_pic', __('身份证图片'))->removable();
+            $form->multipleImage('id_card_pic', __('身份证图片'))->removable();//用mysql的JSON类型字段存储
         });
 
         $form->tab('法人信息', function ($form) {

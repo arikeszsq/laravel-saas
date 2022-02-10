@@ -115,41 +115,41 @@
         var mobile = $('.mobile').val();
         var id_card = $('.id_card').val();
 
-        // var error = 0;
-        // if (!company_name) {
-        //     $(".company_name").parent().find('.notice').html("请输入公司名称！");
-        //     $(".company_name").focus();
-        //     error++;
-        // } else {
-        //     $(".company_name").parent().find('.notice').html("");
-        // }
-        // if (!user_name) {
-        //     $(".username").parent().find('.notice').html("请输入联系人！");
-        //     $(".username").focus();
-        //     error++;
-        // } else {
-        //     $(".username").parent().find('.notice').html("");
-        // }
-        // if (!(/^1[23456789]\d{9}$/.test(mobile))) {
-        //     $(".mobile").parent().find('.notice').html("请输入合法手机号！");
-        //     $(".mobile").focus();
-        //     error++;
-        // } else {
-        //     $(".mobile").parent().find('.notice').html("");
-        // }
-        //
-        // var regIdNo = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
-        // if (!regIdNo.test(id_card)) {
-        //     $(".id_card").parent().find('.notice').html("请输入合法身份证号码！");
-        //     $(".id_card").focus();
-        //     error++;
-        // } else {
-        //     $(".id_card").parent().find('.notice').html("");
-        // }
-        //
-        // if (error > 0) {
-        //     return false;
-        // }
+        var error = 0;
+        if (!company_name) {
+            $(".company_name").parent().find('.notice').html("请输入公司名称！");
+            $(".company_name").focus();
+            error++;
+        } else {
+            $(".company_name").parent().find('.notice').html("");
+        }
+        if (!user_name) {
+            $(".username").parent().find('.notice').html("请输入联系人！");
+            $(".username").focus();
+            error++;
+        } else {
+            $(".username").parent().find('.notice').html("");
+        }
+        if (!(/^1[23456789]\d{9}$/.test(mobile))) {
+            $(".mobile").parent().find('.notice').html("请输入合法手机号！");
+            $(".mobile").focus();
+            error++;
+        } else {
+            $(".mobile").parent().find('.notice').html("");
+        }
+
+        var regIdNo = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
+        if (!regIdNo.test(id_card)) {
+            $(".id_card").parent().find('.notice').html("请输入合法身份证号码！");
+            $(".id_card").focus();
+            error++;
+        } else {
+            $(".id_card").parent().find('.notice').html("");
+        }
+
+        if (error > 0) {
+            return false;
+        }
 
         $.ajax({
             type: 'post',

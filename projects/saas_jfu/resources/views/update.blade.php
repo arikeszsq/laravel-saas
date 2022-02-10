@@ -83,9 +83,11 @@
 
 <div class="form-submit" style="width: 96%;margin-left: 2%;">
     <form id="form">
+        <input type="hidden" name="id" value="{{$id}}">
         <div class="input-group">
             <label class="need">公司名称</label>
-            <input type="text" name="company_name" placeholder="请输入公司名称" aria-describedby="basic-addon1">
+            <input type="text" name="company_name" placeholder="请输入公司名称" aria-describedby="basic-addon1"
+                   value="{{$company_name}}" readonly>
         </div>
         <div class="input-group">
             <label class="need">企业税号</label>
@@ -204,10 +206,14 @@
         var form = $(this);
         $.ajax({
             type: 'post',
-            url: '/api/add',
+            url: '/api/update',
             data: form.serialize(),
-            success: function (data) {
-                console.log(data);
+            success: function (res) {
+                if (res.msg_code == 100000) {
+                    window.location.href = '/result';
+                } else {
+                    alert(res.message)
+                }
             }
         });
     });
