@@ -26,7 +26,7 @@ Route::group([
     $router->resource('webs', WebController::class);
 
     /** 站点平台用户 **/
-    $router->resource('web-admins', WebUserController::class);
+    $router->resource('web-users', WebUserController::class);
 
 
     $router->resource('user-logs', UserLogController::class);

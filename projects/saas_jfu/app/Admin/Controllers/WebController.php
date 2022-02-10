@@ -29,6 +29,9 @@ class WebController extends AdminController
     {
         $grid = new Grid(new AdminUser());
 
+        $grid->model()->orderBy('id', 'desc');
+        $grid->column('id', __('ID'))->sortable();
+        $grid->model()->where('admin_role_id', 2);
         $grid->column('id', __('ID'));
         $grid->column('web_name', __('站点名称'));
         $grid->column('username', __('用户名'));

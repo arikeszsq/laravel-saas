@@ -28,17 +28,15 @@ class WebUserController extends AdminController
     protected function grid()
     {
         $grid = new Grid(new AdminUser());
-
-        if (!static::isSuperAdmin()) {
+        $grid->model()->orderBy('id', 'desc');
+        $grid->column('id', __('ID'))->sortable();
+        if (static::isSuperAdmin()) {
+            $grid->disableCreateButton();//禁用创建按钮
+        } else {
             $web_id = static::webId();
-            $grid->filter(function ($filter) use ($web_id) {
-                $filter->disableIdFilter();
-                $filter->equal('web_id', $web_id);
-            });
+            $grid->model()->where('web_id', $web_id);
         }
-
         $grid->column('id', __('ID'));
-        $grid->column('web_name', __('站点名称'));
         $grid->column('username', __('用户名'));
         $grid->column('name', __('名称'));
         $grid->column('created_at', __('创建时间'));
@@ -56,7 +54,6 @@ class WebUserController extends AdminController
     protected function form()
     {
         $form = new Form(new AdminUser());
-
         $form->tools(function (Form\Tools $tools) {
             // 去掉`删除`按钮
             $tools->disableDelete();
@@ -64,8 +61,6 @@ class WebUserController extends AdminController
             $tools->disableView();
         });
 
-
-        $form->text('web_name', __('站点名称'))->required();
         $form->text('username', __('用户名'))->required();
         $form->text('name', __('名称'))->required();
         $form->password('password', trans('admin.password'))->rules('confirmed|required');
@@ -75,7 +70,6 @@ class WebUserController extends AdminController
             });
         $form->ignore(['password_confirmation']);
         $form->saving(function (Form $form) {
-            $max_web_id = AdminUser::query()->max('web_id');
             $user_name = $form->username;
             $admin_exsit = AdminUser::query()->where('username', $user_name)->first();
             if ($admin_exsit) {
@@ -87,9 +81,10 @@ class WebUserController extends AdminController
             if ($form->isCreating()) {
                 $form->model()->created_at = date('Y-m-d H:i:s');
                 $form->model()->updated_at = date('Y-m-d H:i:s');
-                $form->model()->admin_role_id = 2;
-                $form->model()->web_id = intval($max_web_id) + 1;
-                $form->model()->is_web_super = 1;
+                $form->model()->admin_role_id = 3;
+                $form->model()->web_id = static::webId();
+                $form->model()->is_web_super = 2;
+                $form->model()->web_name = static::user()->web_name;
             } else {
                 $form->model()->updated_at = date('Y-m-d H:i:s');
             }
