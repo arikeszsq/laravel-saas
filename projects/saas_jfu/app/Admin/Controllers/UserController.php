@@ -34,6 +34,20 @@ class UserController extends AdminController
             $tools->append(new ImportPost());
         });
 
+        $grid->filter(function($filter){
+            // 去掉默认的id过滤器
+            $filter->disableIdFilter();
+            $filter->column(1/2, function ($filter) {
+                $filter->like('company_name', '企业名称');
+                $filter->like('user_name', '联系人');
+            });
+            $filter->column(1/2, function ($filter) {
+                $filter->like('mobile', '手机号');
+            });
+        });
+
+
+
         $grid->model()->where('web_id', static::webId());
         $grid->model()->orderBy('id', 'desc');
         $grid->column('id', __('ID'))->sortable();
