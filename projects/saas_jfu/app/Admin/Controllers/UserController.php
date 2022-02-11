@@ -2,6 +2,7 @@
 
 namespace App\Admin\Controllers;
 
+use App\Admin\Actions\Post\BatchAssign;
 use App\Admin\Actions\Post\ImportPost;
 use App\Admin\Extensions\CheckRow;
 use App\Admin\Extensions\Options;
@@ -46,8 +47,6 @@ class UserController extends AdminController
             });
         });
 
-
-
         $grid->model()->where('web_id', static::webId());
         $grid->model()->orderBy('id', 'desc');
         $grid->column('id', __('ID'))->sortable();
@@ -62,6 +61,10 @@ class UserController extends AdminController
             $actions->disableDelete();// 去掉删除
 //            $actions->append('<a href=""><i class="fa fa-eye">生成专属进件码</i></a>');// 添加操作
             $actions->append(new CheckRow($actions->getKey()));
+        });
+
+        $grid->batchActions(function ($batch) {
+            $batch->add(new BatchAssign());
         });
         return $grid;
     }
