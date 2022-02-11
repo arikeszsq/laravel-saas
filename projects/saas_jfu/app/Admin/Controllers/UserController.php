@@ -2,6 +2,7 @@
 
 namespace App\Admin\Controllers;
 
+use App\Admin\Actions\Post\ImportPost;
 use App\Admin\Extensions\CheckRow;
 use App\Admin\Extensions\Options;
 use App\Models\User;
@@ -27,6 +28,13 @@ class UserController extends AdminController
     protected function grid()
     {
         $grid = new Grid(new User());
+        $grid->quickSearch('user_name');
+
+        $grid->tools(function (Grid\Tools $tools) {
+            $tools->append(new ImportPost());
+        });
+
+        $grid->model()->where('web_id', static::webId());
         $grid->model()->orderBy('id', 'desc');
         $grid->column('id', __('ID'))->sortable();
         $grid->column('company_name', __('企业名称'));
@@ -41,7 +49,6 @@ class UserController extends AdminController
 //            $actions->append('<a href=""><i class="fa fa-eye">生成专属进件码</i></a>');// 添加操作
             $actions->append(new CheckRow($actions->getKey()));
         });
-
         return $grid;
     }
 
