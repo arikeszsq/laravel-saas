@@ -9,6 +9,8 @@
     <script src="/static/bootstrap/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="/static/webuploader/webuploader.css">
     <script type="text/javascript" src="/static/webuploader/webuploader.js"></script>
+
+    <link rel="stylesheet" href="/static/css/update.css">
 </head>
 <body>
 <style>
