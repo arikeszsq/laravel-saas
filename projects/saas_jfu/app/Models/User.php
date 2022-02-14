@@ -52,6 +52,6 @@ class User extends Model
             ->limit(1)
             ->first();
         User::query()->where('id', $user->id)
-            ->update(['link_url' => env('APP_URL') . 'type=update&id=' . $user->id]);
+            ->update(['link_url' => env('APP_URL') . 'id=' . $user->id]);
     }
 }

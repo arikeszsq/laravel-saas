@@ -12,18 +12,9 @@ class IndexController extends Controller
     public function index(Request $request)
     {
         $inputs = $request->all();
-        $id = isset($inputs['id']) && $inputs['id'] ? $inputs['id'] : 1;
-        $type = isset($inputs['type']) && $inputs['type'] ? $inputs['type'] : 'index';
-
-        if ($type == 'update') {
-            $user = User::query()->find($id);
-            $data_update = [
-                'id' => $id,
-                'company_name' => $user->company_name,
-            ];
-
-            return view('update', $data_update);
-        } else {
+        $web_id = isset($inputs['web_id']) && $inputs['web_id'] ? $inputs['web_id'] : 0;
+        $id = isset($inputs['id']) && $inputs['id'] ? $inputs['id'] : 0;
+        if ($web_id) {
             $obj = AddUserCode::query()->where('id', $id)->first();
             $data_index = [
                 'color' => $obj->body_color,
@@ -31,6 +22,13 @@ class IndexController extends Controller
                 'web_id' => $obj->web_id,
             ];
             return view('index', $data_index);
+        } else {
+            $user = User::query()->find($id);
+            $data_update = [
+                'id' => $id,
+                'company_name' => $user->company_name,
+            ];
+            return view('update', $data_update);
         }
     }
 
