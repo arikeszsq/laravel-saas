@@ -8,6 +8,7 @@ use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Show;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class WebUserController extends AdminController
@@ -88,6 +89,11 @@ class WebUserController extends AdminController
             } else {
                 $form->model()->updated_at = date('Y-m-d H:i:s');
             }
+        });
+        //保存后回调
+        $form->saved(function (Form $form) {
+            $user_id = $form->model()->id;
+            DB::table('admin_role_users')->insert(['role_id' => 3, 'user_id' => $user_id, 'created_at' => date('Y-m-d H:i:s', time())]);
         });
         return $form;
     }

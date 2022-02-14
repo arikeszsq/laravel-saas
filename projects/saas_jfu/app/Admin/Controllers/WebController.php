@@ -8,6 +8,7 @@ use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Show;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class WebController extends AdminController
@@ -73,8 +74,8 @@ class WebController extends AdminController
         $form->saving(function (Form $form) {
             $max_web_id = AdminUser::query()->max('web_id');
             $user_name = $form->username;
-            $admin_exsit = AdminUser::query()->where('username',$user_name)->first();
-            if($admin_exsit){
+            $admin_exsit = AdminUser::query()->where('username', $user_name)->first();
+            if ($admin_exsit) {
                 admin_error('用户名已存在，请换一个新的用户名');
                 return redirect('/admin/webs');
             }
@@ -89,6 +90,11 @@ class WebController extends AdminController
             } else {
                 $form->model()->updated_at = date('Y-m-d H:i:s');
             }
+        });
+        //保存后回调
+        $form->saved(function (Form $form) {
+            $user_id = $form->model()->id;
+            DB::table('admin_role_users')->insert(['role_id' => 2, 'user_id' => $user_id, 'created_at' => date('Y-m-d H:i:s', time())]);
         });
         return $form;
     }
