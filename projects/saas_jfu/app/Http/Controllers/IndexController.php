@@ -60,6 +60,7 @@ class IndexController extends Controller
                 'id_card' => $inputs['id_card'],
             ];
             $ret = DB::table('jf_user')->insert($data);
+            User::addLinkUrl();
             return self::success($ret);
         } catch (\Exception $e) {
             return self::error($e->getCode(), $e->getMessage());
